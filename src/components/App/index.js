@@ -1,0 +1,29 @@
+import React from 'react';
+import {
+    BrowserRouter as Router,
+    Route,
+    Redirect
+} from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
+import Home from '../Home/Home';
+import SignIn from '../SignIn/SignIn';
+import Edit from '../Edit/Edit';
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+      localStorage.getItem('laa')
+        ? <Component {...props} />
+        : <Redirect to='/signin' />
+    )} />
+)
+
+const App = () => (
+  <Router>
+    <div>
+      <PrivateRoute exact path={ROUTES.HOME} component={Home} />
+      <Route path={ROUTES.SIGNIN} component={SignIn} />
+      <PrivateRoute path={ROUTES.EDIT} component={Edit} />
+    </div>
+  </Router>
+);
+export default App;
