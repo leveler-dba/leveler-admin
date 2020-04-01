@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-//import { Test } from './Home.styles';
+import { Redirect, withRouter, Link } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
+import styles from './Home.module.scss';
+import * as KEYS from '../../constants/strings';
 
 class Home extends PureComponent { 
   constructor(props) {
@@ -17,6 +20,7 @@ class Home extends PureComponent {
 
   componentDidMount = () => {
     console.log('Home mounted');
+    document.title = "leveler | admin"
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -40,19 +44,11 @@ class Home extends PureComponent {
       return <h1>Something went wrong.</h1>;
     }
     return (
-      <div className="HomeWrapper">
+      <div className={styles.HomeWrapper}>
         Home
       </div>
     );
   }
 }
 
-Home.propTypes = {
-  // bla: PropTypes.string,
-};
-
-Home.defaultProps = {
-  // bla: 'test',
-};
-
-export default Home;
+export default compose(withFirebase, withRouter)(Home);
