@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-//import { Test } from './SignIn.styles';
+import { Redirect, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
+import styles from './SignIn.module.scss';
+import * as KEYS from '../../constants/strings';
 
 class SignIn extends PureComponent { 
   constructor(props) {
@@ -8,7 +12,29 @@ class SignIn extends PureComponent {
 
     this.state = {
       hasError: false,
+      email: "",
+      password: "",
+      success: false
     };
+  
+  }
+
+  handleChange = event => {
+    const target = event.target;
+    const name = target.name;
+    this.setState({
+      [name]: target.value
+    });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.firebase.signIn(this.state.email, this.state.password).then(result => {
+      localStorage.setItem(KEYS.STORAGE_KEY, JSON.stringify(result.user));
+      this.props.history.push('/');
+    }).catch(function(error) {
+      console.log(error);
+    })
   }
 
   componentWillMount = () => {
@@ -17,6 +43,7 @@ class SignIn extends PureComponent {
 
   componentDidMount = () => {
     console.log('SignIn mounted');
+    document.title = 'leveler | admin | sign in'
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -40,19 +67,32 @@ class SignIn extends PureComponent {
       return <h1>Something went wrong.</h1>;
     }
     return (
-      <div className="SignInWrapper">
-        Sign In
+      <div className={styles.SignInWrapper}>
+        <img src="./leveler-logo.png"  alt="logo image" />
+        <p>sign in</p>
+        <form onSubmit={this.handleSubmit}>
+          <label>email</label>
+          <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
+          <label>password</label>
+          <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+          <button type="submit" value="Submit">Sign in</button>
+        </form>
+        {this.state.success && (
+          <Redirect to="/" />
+        )}
       </div>
     );
   }
 }
 
 SignIn.propTypes = {
-  // bla: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  success: PropTypes.bool
 };
 
 SignIn.defaultProps = {
-  // bla: 'test',
+  
 };
 
-export default SignIn;
+export default compose(withFirebase, withRouter)(SignIn);

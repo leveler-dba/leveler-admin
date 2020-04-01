@@ -5,13 +5,14 @@ import {
     Redirect
 } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
+import * as KEYS from '../../constants/strings';
 import Home from '../Home/Home';
 import SignIn from '../SignIn/SignIn';
 import Edit from '../Edit/Edit';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
-      localStorage.getItem('laa')
+      localStorage.getItem(KEYS.STORAGE_KEY)
         ? <Component {...props} />
         : <Redirect to='/signin' />
     )} />
@@ -19,11 +20,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const App = () => (
   <Router>
-    <div>
+    <div className="body">
       <PrivateRoute exact path={ROUTES.HOME} component={Home} />
       <Route path={ROUTES.SIGNIN} component={SignIn} />
       <PrivateRoute path={ROUTES.EDIT} component={Edit} />
     </div>
   </Router>
 );
+
 export default App;
