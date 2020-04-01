@@ -1,16 +1,27 @@
 .SignInWrapper {
+    background: #fff;
+    border-radius: 2px;
     display: block;
-    width: 300px;
+    height: 300px;
     margin: 0 auto;
-    background-color: #ffffff;
-    text-align: left;
-    padding: 20px;
-    margin-top: 100px;
+    margin-top: 5%;
+    position: relative;
+    width: 300px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    padding-top: 5px;
     img {
-        width: 100%;
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 5%;
+        display: block;
     }
     p {
         text-align: center;
+        &.error {
+            text-align: left;
+            color: red;
+            font-size: 0.9rem;
+        }
     }
     form {
         width: 200px;

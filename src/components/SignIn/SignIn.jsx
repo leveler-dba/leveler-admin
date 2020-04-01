@@ -30,10 +30,16 @@ class SignIn extends PureComponent {
   handleSubmit = event => {
     event.preventDefault();
     this.props.firebase.signIn(this.state.email, this.state.password).then(result => {
+      this.setState({
+        hasError: false
+      })
       localStorage.setItem(KEYS.STORAGE_KEY, JSON.stringify(result.user));
       this.props.history.push('/');
-    }).catch(function(error) {
+    }).catch(error => {
       console.log(error);
+      this.setState({
+        hasError: true
+      })
     })
   }
 
@@ -63,9 +69,6 @@ class SignIn extends PureComponent {
   }
 
   render () {
-    if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
-    }
     return (
       <div className={styles.SignInWrapper}>
         <img src="./leveler-logo.png"  alt="logo image" />
@@ -75,11 +78,11 @@ class SignIn extends PureComponent {
           <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
           <label>password</label>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+          {this.state.hasError && (
+            <p className={styles.error}>i don't know who you are, so you don't get to come in.</p>
+          )}
           <button type="submit" value="Submit">Sign in</button>
         </form>
-        {this.state.success && (
-          <Redirect to="/" />
-        )}
       </div>
     );
   }
