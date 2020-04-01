@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import styles from './SignIn.module.scss';
@@ -71,7 +71,7 @@ class SignIn extends PureComponent {
   render () {
     return (
       <div className={styles.SignInWrapper}>
-        <img src="./leveler-logo.png"  alt="logo image" />
+        <img src="./leveler-logo.png"  alt="logo" />
         <p>sign in</p>
         <form onSubmit={this.handleSubmit}>
           <label>email</label>

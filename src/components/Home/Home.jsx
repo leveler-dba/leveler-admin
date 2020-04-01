@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react';
-import { Redirect, withRouter, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import styles from './Home.module.scss';
-import * as KEYS from '../../constants/strings';
+import Header from '../Header';
 
 class Home extends PureComponent { 
   constructor(props) {
     super(props);
 
     this.state = {
-      hasError: false,
+      hasError: false
     };
   }
 
@@ -45,7 +45,10 @@ class Home extends PureComponent {
     }
     return (
       <div className={styles.HomeWrapper}>
-        Home
+        <Header />
+        <div className={styles.HomeBody}>
+          <p>Home</p>
+        </div>
       </div>
     );
   }

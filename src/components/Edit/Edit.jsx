@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-//import { Test } from './Edit.styles';
+import { withFirebase } from '../Firebase';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import styles from './Edit.module.scss';
+import Header from '../Header';
+
 
 class Edit extends PureComponent { 
   constructor(props) {
@@ -40,19 +44,14 @@ class Edit extends PureComponent {
       return <h1>Something went wrong.</h1>;
     }
     return (
-      <div className="EditWrapper">
-        Edit
+      <div className={styles.EditWrapper}>
+        <Header />
+        <div className={styles.EditBody}>
+          <p>Edit</p>
+        </div>
       </div>
     );
   }
 }
 
-Edit.propTypes = {
-  // bla: PropTypes.string,
-};
-
-Edit.defaultProps = {
-  // bla: 'test',
-};
-
-export default Edit;
+export default compose(withFirebase, withRouter)(Edit);

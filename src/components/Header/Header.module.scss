@@ -1,0 +1,28 @@
+header {
+    margin-bottom: 36px;
+    a {
+        margin: 0;
+        padding: 0;
+    }
+    img {
+        margin-left: -12px;
+        max-width: 300px;
+        width: 100%;
+    }
+    .top {
+        margin: -15px 0 20px 0;
+    }
+    .sections {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li {
+            float: left;
+            a {
+                display: block;
+                padding-right: 16px;
+                text-align: left;
+            }
+        }
+    }
+}
