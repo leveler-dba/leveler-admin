@@ -11,6 +11,7 @@ class UpdateForm extends PureComponent {
       hasError: false,
       form: {}
     };
+
   }
 
   componentDidMount = () => {
@@ -71,6 +72,16 @@ class UpdateForm extends PureComponent {
   deleteEntry = event => {
     event.preventDefault();
 
+    if (window.confirm('Are you sure you wish to delete this person from the list?')) {
+      const { 
+        entriesIndexCollection, 
+        entriesCollection 
+      } = this.props.firebase;
+      let updates = this.state.form;
+      let del = entriesCollection.doc(updates.id).delete();
+      let delIndex = entriesIndexCollection.doc(updates.index_id).delete();
+    }
+
     this.props.onUpdate({
       deleted: true
     });
@@ -96,6 +107,10 @@ class UpdateForm extends PureComponent {
             <fieldset>
               <label>email</label>
               <input type="text" name="email" value={this.state.form.email} onChange={this.handleChange} />
+            </fieldset>
+            <fieldset>
+              <label>location</label>
+              <input type="text" name="location" value={this.state.form.location} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
               <label>social url</label>
