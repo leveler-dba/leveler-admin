@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import styles from './Home.module.scss';
@@ -14,21 +14,9 @@ class Home extends PureComponent {
     };
   }
 
-  componentWillMount = () => {
-    console.log('Home will mount');
-  }
-
   componentDidMount = () => {
     console.log('Home mounted');
     document.title = "leveler | admin"
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    console.log('Home will receive props', nextProps);
-  }
-
-  componentWillUpdate = (nextProps, nextState) => {
-    console.log('Home will update', nextProps, nextState);
   }
 
   componentDidUpdate = () => {

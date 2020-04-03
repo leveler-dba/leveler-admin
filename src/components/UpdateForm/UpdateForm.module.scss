@@ -1,0 +1,23 @@
+.UpdateFormWrapper {
+    display: block;
+    .UpdateForm {
+        fieldset {
+            border: none;
+            padding-left: 0;
+            label {
+                font-size: 12px;
+                display: block;
+            }
+            input {
+                font-size: 18px;
+                width: 100%;
+                max-width: 360px;
+            }
+            textarea {
+                width: 100%;
+                max-width: 360px;
+                height: 150px;
+            }
+        }
+    }
+}
