@@ -19,6 +19,7 @@ class UpdateForm extends PureComponent {
   loadForm = () => {
     let entry = this.props.entry;
     let entryIndex = this.props.entryIndex;
+    
     this.setState({
       form: {
         email: entryIndex.email,
@@ -26,7 +27,7 @@ class UpdateForm extends PureComponent {
         shown: entryIndex.shown,
         social_url: entryIndex.social_url,
         suggestion: entryIndex.suggestion,
-        id: entryIndex.parent_id,
+        id: entry.id,
         index_id: entryIndex.id,
         context: entry.description,
         industry: entry.industry,
@@ -86,8 +87,8 @@ class UpdateForm extends PureComponent {
         entriesCollection 
       } = this.props.firebase;
       let updates = this.state.form;
-      let del = entriesCollection.doc(updates.id).delete();
-      let delIndex = entriesIndexCollection.doc(updates.index_id).delete();
+      entriesCollection.doc(updates.id).delete();
+      entriesIndexCollection.doc(updates.index_id).delete();
     }
 
     this.props.onUpdate({

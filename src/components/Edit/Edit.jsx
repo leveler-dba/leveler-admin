@@ -47,6 +47,7 @@ class Edit extends PureComponent {
       }  
       r.forEach(doc => {
         let data = doc.data()
+        data.id = doc.id;
         this.setState({
           entryIndexData: data
         })
