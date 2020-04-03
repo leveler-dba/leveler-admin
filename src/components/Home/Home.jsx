@@ -15,16 +15,13 @@ class Home extends PureComponent {
   }
 
   componentDidMount = () => {
-    console.log('Home mounted');
     document.title = "leveler | admin"
   }
 
   componentDidUpdate = () => {
-    console.log('Home did update');
   }
 
   componentWillUnmount = () => {
-    console.log('Home will unmount');
   }
 
   render () {
@@ -35,7 +32,10 @@ class Home extends PureComponent {
       <div className={styles.HomeWrapper}>
         <Header />
         <div className={styles.HomeBody}>
-          <p>Home</p>
+          <p>you're at the admin panel. you did everything right so far. i'm proud of you.</p>
+          <p>right now, all that's here is that edit button up there. hit that and you can update 
+            people's info or delete them. You can also see some basic stats on how many times 
+            they were shown to people and stuff. its nothing fancy but its there.</p>
         </div>
       </div>
     );
