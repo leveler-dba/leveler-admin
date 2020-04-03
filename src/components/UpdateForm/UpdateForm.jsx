@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import { withFirebase } from './../Firebase';
 import { compose } from 'recompose';
 import styles from './UpdateForm.module.scss';
+import classNames from 'classnames';
 
 class UpdateForm extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       hasError: false,
-      form: {}
+      form: {},
+      changedFields: {}
     };
 
   }
 
-  componentDidMount = () => {
-    console.log('UpdateForm mounted');
-    console.log(this.props.entry, this.props.entryIndex);
+  loadForm = () => {
     let entry = this.props.entry;
     let entryIndex = this.props.entryIndex;
     this.setState({
@@ -34,7 +34,11 @@ class UpdateForm extends PureComponent {
         payment_url: entry.payment_url[0]
       }
     })
+  }
 
+  componentDidMount = () => {
+    console.log('UpdateForm mounted');
+    this.loadForm();
   }
 
   componentDidUpdate = () => {
@@ -66,7 +70,10 @@ class UpdateForm extends PureComponent {
     }
     entriesIndexCollection.doc(updates.index_id).set(entryIndexPayload, {merge: true}).then(
       entriesCollection.doc(updates.id).set(entryPayload, {merge: true})
-    );  
+    );
+    this.setState({
+      changedFields: {}
+    })  
   }
 
   deleteEntry = event => {
@@ -93,8 +100,20 @@ class UpdateForm extends PureComponent {
       form: {
         ...prevState.form,
         [e.name]: e.value
+      },
+      changedFields: {
+        ...prevState.changedFields,
+        [e.name]: true
       }
     }))
+  }
+
+  isEmpty(obj){
+    for(var key in obj) {
+      if(obj.hasOwnProperty(key))
+          return false;
+    }
+    return true;
   }
 
   render() {
@@ -105,35 +124,42 @@ class UpdateForm extends PureComponent {
           <p>Potential Contributions: {this.state.form.potential_contrib}</p>
           <div>
             <fieldset>
-              <label>email</label>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.email})}>email</label>
               <input type="text" name="email" value={this.state.form.email} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
-              <label>location</label>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.location})}>location</label>
               <input type="text" name="location" value={this.state.form.location} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
-              <label>social url</label>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.social_url})}>social url</label>
               <input type="text" name="social_url" value={this.state.form.social_url} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
-              <label>industry</label>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.industry})}>industry</label>
               <input type="text" name="industry" value={this.state.form.industry} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
-              <label>payment_url</label>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.payment_url})}>payment_url</label>
               <input type="text" name="payment_url" value={this.state.form.payment_url} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
-              <label>context</label>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.context})}>context</label>
               <textarea type="text" name="context" value={this.state.form.context} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
-              <label>suggestion</label>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.suggestion})}>suggestion</label>
               <textarea type="text" name="suggestion" value={this.state.form.suggestion} onChange={this.handleChange} />
             </fieldset>
-            <button className="update" type="submit" value="Submit" onClick={this.submitHandler}>Update this Entry</button>
-            <button className="delete" onClick={this.deleteEntry}>Delete this Entry</button>
+            <fieldset className={styles.ButtonPanel}>
+              {!this.isEmpty(this.state.changedFields) && (
+                <>
+                <button className={styles.cancel} onClick={this.loadForm}>Cancel</button>
+                <button className={styles.update} type="submit" value="Submit" onClick={this.submitHandler}>Update this Entry</button>
+                </>
+              )}
+              <button className={styles.delete} onClick={this.deleteEntry}>Delete this Entry</button>
+            </fieldset>
           </div>
         </form>
       </div>

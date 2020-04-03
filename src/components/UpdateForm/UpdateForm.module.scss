@@ -7,6 +7,11 @@
             label {
                 font-size: 12px;
                 display: block;
+                transition: color .25s;
+                font-weight: bold;
+                &.changed {
+                    color: red;
+                }
             }
             input {
                 font-size: 18px;
@@ -18,6 +23,17 @@
                 max-width: 360px;
                 height: 150px;
             }
+            &.ButtonPanel {
+                button {
+                    font-size: 18px;
+                    display: block;
+                    margin-bottom: 9px;
+                    &.delete {
+                        background-color: red;
+                    }
+                }       
+            }
+            
         }
     }
 }
