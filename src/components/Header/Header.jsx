@@ -6,7 +6,7 @@ import KEYS from '../../constants/strings';
 
 const Header = () => (
 	<header>
-		<Link to={ROUTES.HOME}><img src="./leveler-logo.png" alt="Logo img" /></Link>
+		<Link to={ROUTES.HOME}><img src="./leveler-logo-reduced.png" alt="Logo img" /></Link>
 		<p className={styles.top}>the admin panel</p>
     <ul className={styles.sections}>
       <li><Link to={ROUTES.HOME}>home</Link></li>
