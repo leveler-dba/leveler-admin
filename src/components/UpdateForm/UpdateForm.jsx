@@ -37,16 +37,17 @@ class UpdateForm extends PureComponent {
   }
 
   componentDidMount = () => {
-    console.log('UpdateForm mounted');
+    this.loadForm();
+  }
+
+  componentWillReceiveProps = (nextProps) => {
     this.loadForm();
   }
 
   componentDidUpdate = () => {
-    console.log('UpdateForm did update');
   }
 
   componentWillUnmount = () => {
-    console.log('UpdateForm will unmount');
   }
 
   submitHandler = event => {

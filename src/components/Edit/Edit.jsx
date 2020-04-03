@@ -19,16 +19,13 @@ class Edit extends PureComponent {
   }
 
   componentDidMount = () => {
-    console.log('Edit mounted');
     document.title = 'leveler | search';
   }
 
   componentDidUpdate = () => {
-    console.log('Edit did update');
   }
 
   componentWillUnmount = () => {
-    console.log('Edit will unmount');
   }
 
   handleChange = event => {
@@ -45,7 +42,6 @@ class Edit extends PureComponent {
     } = this.props.firebase;
     entriesIndexCollection.where('email','==',this.state.query).limit(1).get().then(r => {
       if (r.empty) {
-        console.log('No matching documents.');
         this.setState({hasResult: false, hasError: true});
         return;
       }  
@@ -55,15 +51,12 @@ class Edit extends PureComponent {
           entryIndexData: data
         })
       });
-      console.log(this.state.entryIndexData.parent_id);
       entriesCollection.doc(this.state.entryIndexData.parent_id).get().then(doc => {
         if (!doc.exists) {
-          console.log('No matching documents.');
           this.setState({hasResult: false, hasError: true});
           return;
         } else {
           let result = doc.data();
-          console.log(result);
           this.setState({
             entryData: result
           })
