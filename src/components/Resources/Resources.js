@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import Header from '../Header';
 import { SelectCountry } from '../Forms/SelectCountry';
-import AddResourceItem from '../Forms/AddResourceItem';
+import { AddResourceLink } from '../Forms/AddResourceLink';
 import styles from './Resources.module.scss';
 import * as INTL from '../../constants/intl'
 
@@ -32,12 +32,13 @@ class Resources extends PureComponent {
 			<>
 				<Header />
 				<div className={styles.ResourcesBody}>
-					<p>add a link:</p>
+				{!selectedCountryName && <p>First, select a country</p>}
 						<SelectCountry 
 							countries={countries} 
 							returnSelectedCountry={returnSelectedCountry}
 						/>
-					{selectedCountryName && <div>You are adding a Resource Link to {selectedCountryName}</div>}
+					{selectedCountryName && <p>You are adding a Resource Link to <b>{selectedCountryName}</b></p>}
+					{selectedCountryName && <AddResourceLink/>}
 				</div>
 			</>
 		)
