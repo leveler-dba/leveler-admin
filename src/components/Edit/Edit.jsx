@@ -6,26 +6,17 @@ import styles from './Edit.module.scss';
 import Header from '../Header';
 import UpdateForm from '../UpdateForm';
 
-class Edit extends PureComponent { 
-  constructor(props) {
-    super(props);
-    this.state = {
+class Edit extends PureComponent {
+    state = {
       hasError: false,
       query: "",
       hasResult: false,
       entryData: {},
       entryIndexData: {}
     };
-  }
 
   componentDidMount = () => {
     document.title = 'leveler | search';
-  }
-
-  componentDidUpdate = () => {
-  }
-
-  componentWillUnmount = () => {
   }
 
   handleChange = event => {
@@ -81,7 +72,7 @@ class Edit extends PureComponent {
 
   render () {
     return (
-      <div className={styles.EditWrapper}>
+      <>
         <Header />
         <div className={styles.EditBody}>
           <p>search for a user by their email.</p>
@@ -94,7 +85,7 @@ class Edit extends PureComponent {
             <UpdateForm entry={this.state.entryData} entryIndex={this.state.entryIndexData} onUpdate={this.onFormUpdate} />
           )}
         </div>
-      </div>
+      </>
     );
   }
 }
