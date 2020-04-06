@@ -11,6 +11,7 @@ const Header = () => (
     <ul className={styles.sections}>
       <li><Link to={ROUTES.HOME}>home</Link></li>
       <li><Link to={ROUTES.EDIT}>edit</Link></li>
+			<li><Link to={ROUTES.RESOURCES}>resources</Link></li>
     </ul>
 	</header>
 )

@@ -1,23 +1,19 @@
-.EditWrapper {
-    width: 100%;
-    max-width: 768px;
-    .EditBody {
-        padding-top: 24px;
-        clear: left;
-        .SearchForm {
-            input {
-                font-size: 18px;
-                margin-right: 9px;
-                width: 234px;
-            }
-            span.error {
-                color: red;
-                display: block;
-                font-size: 0.9rem;
-            }
-            button {
-                font-size: 18px;
-            }
+.EditBody {
+    padding-top: 24px;
+    clear: left;
+    .SearchForm {
+        input {
+            font-size: 18px;
+            margin-right: 9px;
+            width: 234px;
+        }
+        span.error {
+            color: red;
+            display: block;
+            font-size: 0.9rem;
+        }
+        button {
+            font-size: 18px;
         }
     }
 }
