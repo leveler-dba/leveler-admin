@@ -18,7 +18,6 @@ export const SelectCountry = (props) => {
       }}
     >
       <Form>
-        <label htmlFor="selectedCountry">Select a Country</label>
         <Field name="selectedCountry" as="select" >
 					<option value="">select a country</option>
 					{props.countries.map((country, index) => (
