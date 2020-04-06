@@ -105,6 +105,7 @@ class Resources extends PureComponent {
 							} catch(e) {
 								console.log(e.message)
 							}
+							break;
 						default:
 							break;
 					}

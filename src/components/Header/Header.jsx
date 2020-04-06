@@ -10,8 +10,8 @@ const Header = () => (
 		<p className={styles.top}>the admin panel</p>
     <ul className={styles.sections}>
       <li><Link to={ROUTES.HOME}>home</Link></li>
-      <li><Link to={ROUTES.EDIT}>edit</Link></li>
-			<li><Link to={ROUTES.RESOURCES}>resources</Link></li>
+      <li><Link to={ROUTES.EDIT}>manage users</Link></li>
+	  <li><Link to={ROUTES.RESOURCES}>manage resources</Link></li>
     </ul>
 	</header>
 )

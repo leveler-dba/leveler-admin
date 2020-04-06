@@ -1,4 +1,21 @@
 .ResourcesBody {
 	padding-top: 24px;
 	clear: left;
+	form {
+		select, button, input {
+			font-size: 18px;
+		}
+		select {
+			margin-right: 18px;
+		}
+		label {
+			margin-bottom: 0;
+			font-weight: bold;
+			font-size: 12px; 
+		}
+		span {
+			color: red;
+			font-size: 12px;
+		}
+	}
 }

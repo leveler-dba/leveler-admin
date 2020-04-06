@@ -33,9 +33,10 @@ class Home extends PureComponent {
         <Header />
         <div className={styles.HomeBody}>
           <p>you're at the admin panel. you did everything right so far. i'm proud of you.</p>
-          <p>right now, all that's here is that edit button up there. hit that and you can update 
-            people's info or delete them. You can also see some basic stats on how many times 
-            they were shown to people and stuff. its nothing fancy but its there.</p>
+          <p>Welp, we added another button op there. It lets you manage resources. the button said that, but 
+            i thought i would tell you anyways. resources are new, so if you have any questions, just ask in the slack.
+            you can still edit users, we didn't take that away or nothin'.
+          </p>
         </div>
       </div>
     );

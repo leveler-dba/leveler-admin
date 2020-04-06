@@ -31,10 +31,10 @@ export const AddResourceLink = (props) => {
 		<Form className={styles.AddResourceLinkForm}>
 			<label htmlFor="title">Title</label>
 			<Field name="title" type="text" />
-			<ErrorMessage name="title" />
+			<ErrorMessage component="span" name="title"/>
 			<label htmlFor="url">URL</label>
 			<Field name="url" type="text" />
-			<ErrorMessage name="url" />
+			<ErrorMessage component="span" name="url" />
 			<label htmlFor="category">Category</label>
 			<Field name="category" as="select" >
 				<option value="">select a category</option>
