@@ -1,7 +1,7 @@
-// leveler mexico
-export const mexico = 'mx';
-
+// COUNTRY PREFIX CODES FOR DATA GOING TO OTHER COUNTRIES
+// NOTE THAT THE FIRST LETTER SHOULD BE CAPITALIZED
+// TO FIT IN WITH STRING SCHEMA
 export const countries = [
-	{"USA": 'usa'},
-	{"Mexico": 'mx'}
+	{"USA": 'Usa'},
+	{"Mexico": 'Mex'}
 ]
