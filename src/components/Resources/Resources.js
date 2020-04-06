@@ -139,9 +139,6 @@ class Resources extends PureComponent {
 					{selectedCountryName && <p>You are adding a Resource Link to <b>{selectedCountryName}</b></p>}
 					{selectedCountryName && 
 						<AddResourceLink
-							// selectedCountryPrefix={selectedCountryPrefix}
-							// firebase={firebase}
-							// uid={uid} 
 							prepLinkObject={prepLinkObject} />
 					}
 				</div>
