@@ -15,7 +15,8 @@ class Resources extends PureComponent {
 		selectedCountryName: '',
 		selectedCountryPrefix: '',
 		uid: '',
-		username: ''
+		username: '',
+		submitted: false
 	}
 	
 	async componentDidMount () {
@@ -86,6 +87,7 @@ class Resources extends PureComponent {
 						.add(linkObj)
 						.then((docRef) => {
 							updateUser(docRef.id)
+							this.setState({submitted: true})
 							})
 						} catch(e) {
 							console.log(e.message)
@@ -98,6 +100,7 @@ class Resources extends PureComponent {
 									.add(linkObj)
 									.then((docRef) => {
 										updateUser(docRef.id)
+										this.setState({submitted: true})
 									})
 							} catch(e) {
 								console.log(e.message)
@@ -125,8 +128,7 @@ class Resources extends PureComponent {
 
 
 		const { countries } = INTL;
-		const { selectedCountryName, selectedCountryPrefix, uid } = this.state;
-		const { firebase } = this.props;
+		const { selectedCountryName, selectedCountryPrefix, submitted } = this.state;
 		return (
 			<>
 				<Header />
@@ -136,11 +138,12 @@ class Resources extends PureComponent {
 							countries={countries} 
 							returnSelectedCountry={returnSelectedCountry}
 						/>
-					{selectedCountryName && <p>You are adding a Resource Link to <b>{selectedCountryName}</b></p>}
-					{selectedCountryName && 
+					{selectedCountryName && <p><b>You are adding a Resource Link to {selectedCountryName}</b></p>}
+					{selectedCountryName && !submitted && 
 						<AddResourceLink
 							prepLinkObject={prepLinkObject} />
 					}
+					{submitted && <div><p>Added! ✅ Reload and choose your country to add another link.</p></div>}
 				</div>
 			</>
 		)
