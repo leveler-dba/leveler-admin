@@ -144,7 +144,7 @@ class Resources extends PureComponent {
 						<AddResourceLink
 							prepLinkObject={prepLinkObject} />
 					}
-					{submitted && <div><p>Added! ✅ Reload and choose your country to add another link.</p></div>}
+					{submitted && <div><p>Added! <span role="img" aria-label="checkmark">✅</span> Reload and choose your country to add another link.</p></div>}
 				</div>
 			</>
 		)
