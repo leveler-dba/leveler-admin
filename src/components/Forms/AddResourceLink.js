@@ -7,18 +7,22 @@ export const AddResourceLink = (props) => {
 	const categories = [
 		'EMERGENCY FUNDING',
 		'FUNDING OPPORTUNITIES',
-		'CROWDFUNDING'
+		'CROWDFUNDING',
+		'JOB',
+		'FREELANCE',
+		'GIG',
+		'GRANT'
 	]
   return (
 		<Formik
 		initialValues={{ title: '', url: '', category: '' }}
 		validationSchema={Yup.object({
 			title: Yup.string()
-				.max(100, 'Must be 60 characters or less')
+				.max(100, 'Must be 100 characters or less')
 				.required('Required'),
 			url: Yup.string()
 				.required('Required'),
-				category: Yup.string()
+			category: Yup.string()
 				.required('Required')
 		})}
 		onSubmit={(values, { setSubmitting }) => {
