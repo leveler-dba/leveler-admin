@@ -11,7 +11,8 @@ export const AddResourceLink = (props) => {
 		'JOB',
 		'FREELANCE',
 		'GIG',
-		'GRANT'
+		'GRANT',
+		'FUN'
 	]
   return (
 		<Formik
