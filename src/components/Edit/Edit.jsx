@@ -27,15 +27,15 @@ class Edit extends PureComponent {
 
   handleSearch = (event) => {
     event.preventDefault();
-    const { 
-      entriesIndexCollection, 
-      entriesCollection 
+    const {
+      entriesIndexCollection,
+      entriesCollection
     } = this.props.firebase;
     entriesIndexCollection.where('email','==',this.state.query).limit(1).get().then(r => {
       if (r.empty) {
         this.setState({hasResult: false, hasError: true});
         return;
-      }  
+      }
       r.forEach(doc => {
         let data = doc.data()
         data.id = doc.id;
@@ -49,6 +49,7 @@ class Edit extends PureComponent {
           return;
         } else {
           let result = doc.data();
+          result['id'] = doc.id;
           this.setState({
             entryData: result
           })
