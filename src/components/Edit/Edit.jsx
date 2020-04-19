@@ -27,24 +27,49 @@ class Edit extends PureComponent {
 
   handleSearch = (event) => {
     event.preventDefault();
+    this.getUserByEmail(this.state.query)
+  }
+
+  onFormUpdate = () => {
+    this.setState({
+      hasResult: false,
+      query: "",
+      entryData: {},
+      entryIndexData: {}
+    })
+  }
+
+  getUserByEmail = async (userInput) => {
     const {
       privateCollection,
-      entriesCollection
     } = this.props.firebase;
-    privateCollection.where('email','==',this.state.query).limit(1).get().then(r => {
-      if (r.empty) {
-        this.setState({hasResult: false, hasError: true});
-        return;
-      }
-      r.forEach(doc => {
-        let data = doc.data()
-        data.id = doc.id;
-        data.parent_id = doc.ref.parent.parent.id
-        this.setState({
-          entryIndexData: data
-        })
-      });
-      entriesCollection.doc(this.state.entryIndexData.parent_id).get().then(doc => {
+
+    try {
+      await privateCollection.where('email','==',userInput).limit(1).get().then(r => {
+        if (r.empty) {
+          this.setState({hasResult: false, hasError: true});
+          return;
+        }
+        r.forEach(doc => {
+          let data = doc.data()
+          data.id = doc.id;
+          data.parent_id = doc.ref.parent.parent.id
+          this.setState({
+            entryIndexData: data
+          })
+          this.getUserObj(doc.ref.parent.parent.id)
+        });
+     })
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
+  getUserObj = async (uid) => {
+    const { entriesCollection } = this.props.firebase;
+
+    try {
+      entriesCollection.doc(uid).get().then(doc => {
         if (!doc.exists) {
           this.setState({hasResult: false, hasError: true});
           return;
@@ -57,19 +82,9 @@ class Edit extends PureComponent {
         }
         this.setState({hasResult: true});
       });
-    })
-    .catch(err => {
-      this.setState({hasError: true});
-    });
-  }
-
-  onFormUpdate = () => {
-    this.setState({
-      hasResult: false,
-      query: "",
-      entryData: {},
-      entryIndexData: {}
-    })
+    } catch(e) {
+      console.log(e.message)
+    }
   }
 
   render () {
