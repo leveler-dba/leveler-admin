@@ -61,7 +61,7 @@ class Firebase {
     this.appAuth = app.auth();
     this.userCollection = this.dbFs.collection('users');
     this.entriesCollection = this.dbFs.collection('entries');
-    this.entriesIndexCollection = this.dbFs.collection('entriesIndex');
+    this.privateCollection = this.dbFs.collectionGroup('private');
     this.resourcesCollection = this.dbFs.collection('resources');
     this.resourcesCollectionMex = this.dbFs.collection('resourcesMex');
   }

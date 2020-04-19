@@ -19,7 +19,7 @@ class UpdateForm extends PureComponent {
   loadForm = () => {
     let entry = this.props.entry;
     let entryIndex = this.props.entryIndex;
-    
+
     this.setState({
       form: {
         email: entryIndex.email,
@@ -53,42 +53,40 @@ class UpdateForm extends PureComponent {
 
   submitHandler = event => {
     event.preventDefault();
-    const { 
-      entriesIndexCollection, 
-      entriesCollection 
+    const {
+      entriesCollection
     } = this.props.firebase;
     let updates = this.state.form;
     let entryPayload = {
       description: updates.context,
       industry: updates.industry,
       location: updates.location,
-      payment_url: []
+      payment_url: [],
+      suggestion: updates.suggestion,
     }
     entryPayload.payment_url[0] = updates.payment_url;
-    let entryIndexPayload = {
+    let privatePayload = {
       email: updates.email,
       social_url: updates.social_url,
-      suggestion: updates.suggestion
     }
-    entriesIndexCollection.doc(updates.index_id).set(entryIndexPayload, {merge: true}).then(
-      entriesCollection.doc(updates.id).set(entryPayload, {merge: true})
-    );
+    let entriesRef = entriesCollection.doc(updates.id);
+    entriesRef.set(entryPayload, {merge: true});
+    entriesRef.collection('private').doc(updates.index_id).set(privatePayload, {merge: true});
     this.setState({
       changedFields: {}
-    })  
+    })
   }
 
   deleteEntry = event => {
     event.preventDefault();
 
     if (window.confirm('Are you sure you wish to delete this person from the list?')) {
-      const { 
-        entriesIndexCollection, 
-        entriesCollection 
+      const {
+        entriesCollection
       } = this.props.firebase;
       let updates = this.state.form;
+      entriesCollection.doc(updates.id).collection('private').doc(updates.index_id).delete();
       entriesCollection.doc(updates.id).delete();
-      entriesIndexCollection.doc(updates.index_id).delete();
     }
 
     this.props.onUpdate({
