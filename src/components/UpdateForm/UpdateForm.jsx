@@ -82,11 +82,24 @@ class UpdateForm extends PureComponent {
 
     if (window.confirm('Are you sure you wish to delete this person from the list?')) {
       const {
-        entriesCollection
+        entriesCollection,
+        dbFs,
       } = this.props.firebase;
       let updates = this.state.form;
-      entriesCollection.doc(updates.id).collection('private').doc(updates.index_id).delete();
-      entriesCollection.doc(updates.id).delete();
+
+      let batch = dbFs.batch();
+      let entryRef = entriesCollection.doc(updates.id);
+      let privateRef = entryRef.collection('private').doc(updates.index_id);
+      batch
+        .delete(privateRef)
+        .delete(entryRef)
+        .commit()
+        .then(() => {
+          console.log('Deletion were successful')
+        })
+        .catch((err => {
+          console.error(err);
+        }));
     }
 
     this.props.onUpdate({
