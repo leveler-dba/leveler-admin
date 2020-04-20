@@ -54,7 +54,8 @@ class UpdateForm extends PureComponent {
   submitHandler = event => {
     event.preventDefault();
     const {
-      entriesCollection
+      entriesCollection,
+      dbFs,
     } = this.props.firebase;
     let updates = this.state.form;
     let entryPayload = {
@@ -69,12 +70,21 @@ class UpdateForm extends PureComponent {
       email: updates.email,
       social_url: updates.social_url,
     }
-    let entriesRef = entriesCollection.doc(updates.id);
-    entriesRef.set(entryPayload, {merge: true});
-    entriesRef.collection('private').doc(updates.index_id).set(privatePayload, {merge: true});
-    this.setState({
-      changedFields: {}
-    })
+    let batch = dbFs.batch();
+    let entryRef = entriesCollection.doc(updates.id);
+    let privateRef = entryRef.collection('private').doc(updates.index_id);
+    batch
+      .set(entryRef, entryPayload, {merge: true})
+      .set(privateRef, privatePayload, {merge: true})
+      .commit(() => {
+        this.setState({
+          changedFields: {}
+        });
+        console.log('Updates were successful');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   deleteEntry = event => {
