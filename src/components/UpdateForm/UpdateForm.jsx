@@ -64,13 +64,19 @@ class UpdateForm extends PureComponent {
       description: updates.context,
       industry: updates.industry,
       location: {
-        city: updates.city?updates.city:"",
-        country: updates.country?updates.country:"",
-        state: updates.state?updates.state:"",
+        city: updates.city,
+        country: updates.country,
+        state: updates.state,
       },
       payment_url: [],
-      suggestion: updates.suggestion?updates.suggestion:"",
+      suggestion: updates.suggestion,
     }
+
+    Object.keys(entryPayload)
+      .forEach(key => entryPayload[key] === undefined ?delete entryPayload[key] : {});
+    Object.keys(entryPayload.location)
+      .forEach(key => entryPayload.location[key] === undefined ?delete entryPayload.location[key] : {});
+
     entryPayload.payment_url[0] = updates.payment_url;
     let privatePayload = {
       email: updates.email,
