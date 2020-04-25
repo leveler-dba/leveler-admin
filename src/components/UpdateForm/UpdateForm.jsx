@@ -76,7 +76,8 @@ class UpdateForm extends PureComponent {
     batch
       .set(entryRef, entryPayload, {merge: true})
       .set(privateRef, privatePayload, {merge: true})
-      .commit(() => {
+      .commit()
+      .then(() => {
         this.setState({
           changedFields: {}
         });
