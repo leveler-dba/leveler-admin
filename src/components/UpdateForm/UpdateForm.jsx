@@ -26,7 +26,7 @@ class UpdateForm extends PureComponent {
         potential_contrib: entryIndex.potential_contrib,
         shown: entryIndex.shown,
         social_url: entryIndex.social_url,
-        suggestion: entryIndex.suggestion,
+        suggestion: entry.suggestion,
         id: entry.id,
         index_id: entryIndex.id,
         context: entry.description,
