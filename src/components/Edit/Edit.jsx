@@ -12,11 +12,21 @@ class Edit extends PureComponent {
       query: "",
       hasResult: false,
       entryData: {},
-      entryIndexData: {}
+      entryIndexData: {},
+      numUsers: -1,
     };
 
   componentDidMount = () => {
     document.title = 'leveler | search';
+
+    const { entriesCollection } = this.props.firebase;
+    entriesCollection.get()
+      .then(snap => {
+        this.setState({
+          numUsers: snap.size,
+        });
+      })
+      .catch(err => console.error(err));
   }
 
   handleChange = event => {
@@ -92,6 +102,7 @@ class Edit extends PureComponent {
       <>
         <Header />
         <div className={styles.EditBody}>
+          <p>There are currently {this.state.numUsers} users.</p>
           <p>search for a user by their email.</p>
           <form className={styles.SearchForm} onSubmit={this.handleSearch}>
             <input type="text" name="query" value={this.state.query} onChange={this.handleChange} placeholder="email-goes-here@gmail.com" />
