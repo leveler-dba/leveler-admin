@@ -31,7 +31,9 @@ class UpdateForm extends PureComponent {
         index_id: entryIndex.id,
         context: entry.description,
         industry: entry.industry,
-        location: entry.location,
+        city: entry.location.city,
+        country: entry.location.country,
+        state: entry.location.state,
         payment_url: entry.payment_url[0]
       }
     })
@@ -61,10 +63,20 @@ class UpdateForm extends PureComponent {
     let entryPayload = {
       description: updates.context,
       industry: updates.industry,
-      location: updates.location,
+      location: {
+        city: updates.city,
+        country: updates.country,
+        state: updates.state,
+      },
       payment_url: [],
       suggestion: updates.suggestion,
     }
+
+    Object.keys(entryPayload)
+      .forEach(key => entryPayload[key] === undefined ?delete entryPayload[key] : {});
+    Object.keys(entryPayload.location)
+      .forEach(key => entryPayload.location[key] === undefined ?delete entryPayload.location[key] : {});
+
     entryPayload.payment_url[0] = updates.payment_url;
     let privatePayload = {
       email: updates.email,
@@ -151,8 +163,16 @@ class UpdateForm extends PureComponent {
               <input type="text" name="email" value={this.state.form.email} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
-              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.location})}>location</label>
-              <input type="text" name="location" value={this.state.form.location} onChange={this.handleChange} />
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.city})}>city</label>
+              <input type="text" name="city" value={this.state.form.city} onChange={this.handleChange} />
+            </fieldset>
+            <fieldset>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.country})}>country</label>
+              <input type="text" name="country" value={this.state.form.country} onChange={this.handleChange} />
+            </fieldset>
+            <fieldset>
+              <label className={classNames({[`${styles.changed}`]: this.state.changedFields.state})}>state</label>
+              <input type="text" name="state" value={this.state.form.state} onChange={this.handleChange} />
             </fieldset>
             <fieldset>
               <label className={classNames({[`${styles.changed}`]: this.state.changedFields.social_url})}>social url</label>
