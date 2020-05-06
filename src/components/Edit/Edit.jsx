@@ -19,11 +19,12 @@ class Edit extends PureComponent {
   componentDidMount = () => {
     document.title = 'leveler | search';
 
-    const { entriesCollection } = this.props.firebase;
-    entriesCollection.get()
+    const { dbFs } = this.props.firebase;
+    dbFs.doc('misc/entriesCounter').get()
       .then(snap => {
+        const data = snap.data();
         this.setState({
-          numUsers: snap.size,
+          numUsers: data.size,
         });
       })
       .catch(err => console.error(err));
