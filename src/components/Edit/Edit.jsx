@@ -20,7 +20,7 @@ class Edit extends PureComponent {
     document.title = 'leveler | search';
 
     const { dbFs } = this.props.firebase;
-    dbFs.doc('misc/entriesCounter').get()
+    dbFs.doc('misc/entriesMeta').get()
       .then(snap => {
         const data = snap.data();
         this.setState({
