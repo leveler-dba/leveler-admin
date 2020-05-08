@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import Header from '../Header';
 import { SelectCountry } from '../Forms/SelectCountry';
 import { AddResourceLink } from '../Forms/AddResourceLink';
+import { AddCategory } from '../Forms/CategoriesEditor';
 import styles from './Resources.module.scss';
 import * as INTL from '../../constants/intl'
 import * as KEYS from '../../constants/strings';
@@ -18,7 +19,7 @@ class Resources extends PureComponent {
 		username: '',
 		submitted: false
 	}
-	
+
 	async componentDidMount () {
 		document.title = 'leveler | resources';
 		const lsData = await localStorage.getItem(KEYS.STORAGE_KEY)
@@ -48,7 +49,7 @@ class Resources extends PureComponent {
 			console.log(e.message)
 		}
 	}
-	
+
 	render () {
 		const returnSelectedCountry = (country) => {
 			this.setState({
@@ -61,7 +62,7 @@ class Resources extends PureComponent {
 			const { title, url, category } = valuesObj;
 			const { fieldValue } = this.props.firebase;
 			const { username } = this.state;
-			
+
 			const writeObj = {
 				created: fieldValue.serverTimestamp(),
 				by: username,
@@ -134,13 +135,14 @@ class Resources extends PureComponent {
 			<>
 				<Header />
 				<div className={styles.ResourcesBody}>
+				<AddCategory />
 				{!selectedCountryName && <p>First, select a country</p>}
-						<SelectCountry 
-							countries={countries} 
+						<SelectCountry
+							countries={countries}
 							returnSelectedCountry={returnSelectedCountry}
 						/>
 					{selectedCountryName && <p><b>You are adding a Resource Link to {selectedCountryName}</b></p>}
-					{selectedCountryName && !submitted && 
+					{selectedCountryName && !submitted &&
 						<AddResourceLink
 							prepLinkObject={prepLinkObject} />
 					}
