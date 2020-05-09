@@ -135,7 +135,7 @@ class Resources extends PureComponent {
 			<>
 				<Header />
 				<div className={styles.ResourcesBody}>
-				<AddCategory />
+				<AddCategory firebase={this.props.firebase}/>
 				{!selectedCountryName && <p>First, select a country</p>}
 						<SelectCountry
 							countries={countries}

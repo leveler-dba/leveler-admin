@@ -16,7 +16,12 @@ export const AddCategory = (props) => {
         setTimeout(() => {
           const confirmed = window.confirm(`Are you sure you want to add new category "${newCategory}"?`);
           if (confirmed) {
-            console.log(newCategory);
+            const { dbFs, fieldValue } = props.firebase;
+            const docRef = dbFs.doc('misc/resourcesMeta')
+            docRef.update({
+              categories: fieldValue.arrayUnion(newCategory)
+            })
+            .catch((error) => console.error(error));
           }
         }, 500)
       }}
