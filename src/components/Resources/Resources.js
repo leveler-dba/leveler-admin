@@ -17,7 +17,8 @@ class Resources extends PureComponent {
 		selectedCountryPrefix: '',
 		uid: '',
 		username: '',
-		submitted: false
+		submitted: false,
+		categories: [],
 	}
 
 	async componentDidMount () {
@@ -28,6 +29,7 @@ class Resources extends PureComponent {
 			uid: currentUserId.uid
 		})
 		this.getUserName(currentUserId.uid);
+		this.getCategories();
 	}
 
 	async getUserName(uid) {
@@ -49,6 +51,19 @@ class Resources extends PureComponent {
 			console.log(e.message)
 		}
 	}
+
+	async getCategories() {
+		const { dbFs } = this.props.firebase;
+		try {
+			const docSnap = await dbFs.doc('misc/resourcesMeta').get()
+			const data = docSnap.data();
+			this.setState({
+				categories: data.categories,
+			});
+		} catch(error) {
+			console.error(error);
+		}
+	};
 
 	render () {
 		const returnSelectedCountry = (country) => {
@@ -128,7 +143,6 @@ class Resources extends PureComponent {
 			}
 		}
 
-
 		const { countries } = INTL;
 		const { selectedCountryName, selectedCountryPrefix, submitted } = this.state;
 		return (
@@ -144,7 +158,9 @@ class Resources extends PureComponent {
 					{selectedCountryName && <p><b>You are adding a Resource Link to {selectedCountryName}</b></p>}
 					{selectedCountryName && !submitted &&
 						<AddResourceLink
-							prepLinkObject={prepLinkObject} />
+							prepLinkObject={prepLinkObject}
+							categories={this.state.categories}
+						/>
 					}
 					{submitted && <div><p>Added! <span role="img" aria-label="checkmark">✅</span> Reload and choose your country to add another link.</p></div>}
 				</div>
