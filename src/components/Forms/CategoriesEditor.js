@@ -21,6 +21,7 @@ export const AddCategory = (props) => {
             docRef.update({
               categories: fieldValue.arrayUnion(newCategory)
             })
+            .then(() => setShowForm(false))
             .catch((error) => console.error(error));
           }
         }, 500)
