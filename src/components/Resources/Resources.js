@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import Header from '../Header';
 import { SelectCountry } from '../Forms/SelectCountry';
 import { AddResourceLink } from '../Forms/AddResourceLink';
+import { AddCategory } from '../Forms/CategoriesEditor';
 import styles from './Resources.module.scss';
 import * as INTL from '../../constants/intl'
 import * as KEYS from '../../constants/strings';
@@ -16,9 +17,10 @@ class Resources extends PureComponent {
 		selectedCountryPrefix: '',
 		uid: '',
 		username: '',
-		submitted: false
+		submitted: false,
+		categories: [],
 	}
-	
+
 	async componentDidMount () {
 		document.title = 'leveler | resources';
 		const lsData = await localStorage.getItem(KEYS.STORAGE_KEY)
@@ -27,6 +29,7 @@ class Resources extends PureComponent {
 			uid: currentUserId.uid
 		})
 		this.getUserName(currentUserId.uid);
+		this.getCategories();
 	}
 
 	async getUserName(uid) {
@@ -48,7 +51,20 @@ class Resources extends PureComponent {
 			console.log(e.message)
 		}
 	}
-	
+
+	async getCategories() {
+		const { dbFs } = this.props.firebase;
+		try {
+			const docSnap = await dbFs.doc('misc/resourcesMeta').get()
+			const data = docSnap.data();
+			this.setState({
+				categories: data.categories,
+			});
+		} catch(error) {
+			console.error(error);
+		}
+	};
+
 	render () {
 		const returnSelectedCountry = (country) => {
 			this.setState({
@@ -61,7 +77,7 @@ class Resources extends PureComponent {
 			const { title, url, category } = valuesObj;
 			const { fieldValue } = this.props.firebase;
 			const { username } = this.state;
-			
+
 			const writeObj = {
 				created: fieldValue.serverTimestamp(),
 				by: username,
@@ -127,22 +143,24 @@ class Resources extends PureComponent {
 			}
 		}
 
-
 		const { countries } = INTL;
 		const { selectedCountryName, selectedCountryPrefix, submitted } = this.state;
 		return (
 			<>
 				<Header />
 				<div className={styles.ResourcesBody}>
+				<AddCategory firebase={this.props.firebase}/>
 				{!selectedCountryName && <p>First, select a country</p>}
-						<SelectCountry 
-							countries={countries} 
+						<SelectCountry
+							countries={countries}
 							returnSelectedCountry={returnSelectedCountry}
 						/>
 					{selectedCountryName && <p><b>You are adding a Resource Link to {selectedCountryName}</b></p>}
-					{selectedCountryName && !submitted && 
+					{selectedCountryName && !submitted &&
 						<AddResourceLink
-							prepLinkObject={prepLinkObject} />
+							prepLinkObject={prepLinkObject}
+							categories={this.state.categories}
+						/>
 					}
 					{submitted && <div><p>Added! <span role="img" aria-label="checkmark">✅</span> Reload and choose your country to add another link.</p></div>}
 				</div>

@@ -4,16 +4,8 @@ import * as Yup from 'yup';
 import styles from './AddResourceLink.module.scss';
 
 export const AddResourceLink = (props) => {
-	const categories = [
-		'EMERGENCY FUNDING',
-		'FUNDING OPPORTUNITIES',
-		'CROWDFUNDING',
-		'JOB',
-		'FREELANCE',
-		'GIG',
-		'GRANT',
-		'FUN'
-	]
+	const categories = props.categories;
+
   return (
 		<Formik
 		initialValues={{ title: '', url: '', category: '' }}
@@ -44,7 +36,7 @@ export const AddResourceLink = (props) => {
 			<Field name="category" as="select" >
 				<option value="">select a category</option>
 				{categories.map(category => (
-					<option value={category}>{category}</option>	
+					<option value={category}>{category}</option>
 				))}
 			</Field>
 			<button type="submit">Submit</button>
