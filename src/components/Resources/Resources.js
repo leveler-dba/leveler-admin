@@ -3,18 +3,14 @@ import { withFirebase } from '../Firebase';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import Header from '../Header';
-import { SelectCountry } from '../Forms/SelectCountry';
 import { AddResourceLink } from '../Forms/AddResourceLink';
 import { AddCategory } from '../Forms/CategoriesEditor';
 import styles from './Resources.module.scss';
-import * as INTL from '../../constants/intl'
 import * as KEYS from '../../constants/strings';
 
 
 class Resources extends PureComponent {
 	state = {
-		selectedCountryName: '',
-		selectedCountryPrefix: '',
 		uid: '',
 		username: '',
 		submitted: false,
@@ -66,15 +62,8 @@ class Resources extends PureComponent {
 	};
 
 	render () {
-		const returnSelectedCountry = (country) => {
-			this.setState({
-				selectedCountryName: Object.keys(country).toString(),
-				selectedCountryPrefix: Object.values(country).toString()
-			})
-		}
-
 		const prepLinkObject = (valuesObj) => {
-			const { title, url, category, description } = valuesObj;
+			const { title, url, category, description, group } = valuesObj;
 			const { fieldValue } = this.props.firebase;
 			const { username } = this.state;
 
@@ -85,6 +74,7 @@ class Resources extends PureComponent {
 				url,
 				category,
 				description,
+				group,
 				type: 'story',
 				score: 0,
 				descendants: 0,
@@ -97,35 +87,16 @@ class Resources extends PureComponent {
 
 		const writeToResources = async (linkObj) => {
 
-			const { resourcesCollection, resourcesCollectionMex } = this.props.firebase;
-			if (selectedCountryPrefix === 'Usa') {
-				try {
-					await resourcesCollection
-						.add(linkObj)
-						.then((docRef) => {
-							updateUser(docRef.id)
-							this.setState({submitted: true})
-							})
-						} catch(e) {
-							console.log(e.message)
-					}
-				} else {
-					switch (selectedCountryPrefix) {
-						case 'Mex':
-							try {
-								await resourcesCollectionMex
-									.add(linkObj)
-									.then((docRef) => {
-										updateUser(docRef.id)
-										this.setState({submitted: true})
-									})
-							} catch(e) {
-								console.log(e.message)
-							}
-							break;
-						default:
-							break;
-					}
+			const { resourcesCollection } = this.props.firebase;
+			try {
+				await resourcesCollection
+					.add(linkObj)
+					.then((docRef) => {
+						updateUser(docRef.id)
+						this.setState({submitted: true})
+						})
+					} catch(e) {
+						console.log(e.message)
 				}
 			}
 
@@ -144,26 +115,19 @@ class Resources extends PureComponent {
 			}
 		}
 
-		const { countries } = INTL;
-		const { selectedCountryName, selectedCountryPrefix, submitted } = this.state;
+		const { submitted } = this.state;
 		return (
 			<>
 				<Header />
 				<div className={styles.ResourcesBody}>
 				<AddCategory firebase={this.props.firebase}/>
-				{!selectedCountryName && <p>First, select a country</p>}
-						<SelectCountry
-							countries={countries}
-							returnSelectedCountry={returnSelectedCountry}
-						/>
-					{selectedCountryName && <p><b>You are adding a Resource Link to {selectedCountryName}</b></p>}
-					{selectedCountryName && !submitted &&
-						<AddResourceLink
-							prepLinkObject={prepLinkObject}
-							categories={this.state.categories}
-						/>
-					}
-					{submitted && <div><p>Added! <span role="img" aria-label="checkmark">✅</span> Reload and choose your country to add another link.</p></div>}
+				{!submitted &&
+					<AddResourceLink
+						prepLinkObject={prepLinkObject}
+						categories={this.state.categories}
+					/>
+				}
+				{submitted && <div><p>Added! <span role="img" aria-label="checkmark">✅</span> Reload to add another link.</p></div>}
 				</div>
 			</>
 		)
