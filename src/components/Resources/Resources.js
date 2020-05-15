@@ -74,7 +74,7 @@ class Resources extends PureComponent {
 		}
 
 		const prepLinkObject = (valuesObj) => {
-			const { title, url, category } = valuesObj;
+			const { title, url, category, description } = valuesObj;
 			const { fieldValue } = this.props.firebase;
 			const { username } = this.state;
 
@@ -84,6 +84,7 @@ class Resources extends PureComponent {
 				title,
 				url,
 				category,
+				description,
 				type: 'story',
 				score: 0,
 				descendants: null,

@@ -16,7 +16,8 @@ export const AddResourceLink = (props) => {
 			url: Yup.string()
 				.required('Required'),
 			category: Yup.string()
-				.required('Required')
+				.required('Required'),
+			description: Yup.string(),
 		})}
 		onSubmit={(values, { setSubmitting }) => {
 			setTimeout(() => {
@@ -39,6 +40,8 @@ export const AddResourceLink = (props) => {
 					<option value={category}>{category}</option>
 				))}
 			</Field>
+			<label htmlFor="description">Description</label>
+			<Field name="description" type="text" />
 			<button type="submit">Submit</button>
 		</Form>
 	</Formik>
