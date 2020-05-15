@@ -87,7 +87,7 @@ class Resources extends PureComponent {
 				description,
 				type: 'story',
 				score: 0,
-				descendants: null,
+				descendants: 0,
 				kids: null,
 				parent: null,
 				text: null
