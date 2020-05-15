@@ -40,7 +40,7 @@ export const AddResourceLink = (props) => {
 				))}
 			</Field>
 			<label htmlFor="description">Description</label>
-			<Field name="description" type="text" component="textarea" />
+			<Field name="description" type="text" component="textarea" rows="10" />
 			<button type="submit">Submit</button>
 		</Form>
 	</Formik>
