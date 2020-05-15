@@ -9,7 +9,7 @@ export const AddResourceLink = (props) => {
 
   return (
 		<Formik
-		initialValues={{ title: '', url: '', category: '' }}
+		initialValues={{ title: '', url: '', category: '', description: '', }}
 		validationSchema={Yup.object({
 			title: Yup.string()
 				.max(100, 'Must be 100 characters or less')
