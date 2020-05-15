@@ -73,14 +73,13 @@ class Resources extends PureComponent {
 				title,
 				url,
 				category,
-				description,
 				group,
 				type: 'story',
 				score: 0,
 				descendants: 0,
 				kids: null,
 				parent: null,
-				text: null
+				text: description,
 			}
 			writeToResources(writeObj)
 		}
