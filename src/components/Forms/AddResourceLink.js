@@ -2,11 +2,10 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from './AddResourceLink.module.scss';
+import { groups } from '../../constants/groups';
 
 export const AddResourceLink = (props) => {
 	const categories = props.categories;
-
-	const groups = ['USA', 'Mexico', 'Burning Man'];
 
   return (
 		<Formik
