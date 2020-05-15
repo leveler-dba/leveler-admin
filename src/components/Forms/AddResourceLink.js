@@ -13,8 +13,7 @@ export const AddResourceLink = (props) => {
 			title: Yup.string()
 				.max(100, 'Must be 100 characters or less')
 				.required('Required'),
-			url: Yup.string()
-				.required('Required'),
+			url: Yup.string(),
 			category: Yup.string()
 				.required('Required'),
 			description: Yup.string(),
@@ -41,7 +40,7 @@ export const AddResourceLink = (props) => {
 				))}
 			</Field>
 			<label htmlFor="description">Description</label>
-			<Field name="description" type="text" />
+			<Field name="description" type="text" component="textarea" />
 			<button type="submit">Submit</button>
 		</Form>
 	</Formik>
