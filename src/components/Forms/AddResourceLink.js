@@ -6,6 +6,8 @@ import styles from './AddResourceLink.module.scss';
 export const AddResourceLink = (props) => {
 	const categories = props.categories;
 
+	const groups = ['USA', 'Mexico', 'Burning Man'];
+
   return (
 		<Formik
 		initialValues={{ title: '', url: '', category: '' }}
@@ -26,6 +28,13 @@ export const AddResourceLink = (props) => {
 		}}
 	>
 		<Form className={styles.AddResourceLinkForm}>
+			<label htmlFor="group">Group</label>
+			<Field name="group" as="select" >
+				<option value="">select a group</option>
+				{groups.map(group => (
+					<option value={group}>{group}</option>
+				))}
+			</Field>
 			<label htmlFor="title">Title</label>
 			<Field name="title" type="text" />
 			<ErrorMessage component="span" name="title"/>
