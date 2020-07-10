@@ -16,7 +16,8 @@ class Edit extends PureComponent {
       numUsers: 0,
       mexSignups: 0,
       burnerSignups: 0,
-      bipoclgbtqSignups: 0
+      bipoclgbtqSignups: 0,
+      helpyourblackneighborSignups: 0,
     };
 
   componentDidMount = () => {
@@ -35,6 +36,7 @@ class Edit extends PureComponent {
       this.getMexicoCount();
       this.getBurnerCount();
       this.getBipocCount();
+      this.getHelpYourBlackNeighborCount();
   }
 
   getMexicoCount = () => {
@@ -69,6 +71,18 @@ class Edit extends PureComponent {
       .then((querySnapshot) => {
         this.setState({
           bipoclgbtqSignups: querySnapshot.docs.length
+        })
+      })
+  }
+
+  getHelpYourBlackNeighborCount = () => {
+    const { entriesCollection } = this.props.firebase;
+    entriesCollection
+      .where('group', '==', 'helpyourblackneighbor')
+      .get()
+      .then((querySnapshot) => {
+        this.setState({
+          helpyourblackneighborSignups: querySnapshot.docs.length
         })
       })
   }
@@ -150,6 +164,7 @@ class Edit extends PureComponent {
           <p>There are currently {this.state.mexSignups} Mexico signups.</p>
           <p>There are currently {this.state.burnerSignups} Burner signups.</p>
           <p>There are currently {this.state.bipoclgbtqSignups} BIPOCLGBTQ signups.</p>
+          <p>There are currently {this.state.helpyourblackneighborSignups} helpyourblackneighbor signups.</p>
           <p>search for a user by their email.</p>
           <form className={styles.SearchForm} onSubmit={this.handleSearch}>
             <input type="text" name="query" value={this.state.query} onChange={this.handleChange} placeholder="email-goes-here@gmail.com" />
