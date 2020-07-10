@@ -176,11 +176,11 @@ class Edit extends PureComponent {
         <div className={styles.EditBody}>
           <h3>Signups by Group/Subdomain</h3>
           <p>Currently <strong>{this.state.numUsers} Total</strong> signups.</p>
-          <p>Currently <strong>{this.state.mexSignups} Mexico</strong> signups <span>🇲🇽</span></p>
-          <p>Currently <strong>{this.state.cndSignups} Canada</strong> signups <span>🇨🇦</span></p>
-          <p>Currently <strong>{this.state.burnerSignups} Burner</strong> signups <span>🔥</span></p>
-          <p>Currently <strong>{this.state.bipoclgbtqSignups} BIPOCLGBTQ</strong> signups <span>🌈</span></p>
-          <p>Currently <strong>{this.state.helpyourblackneighborSignups} helpyourblackneighbor</strong> signups <span>🏘</span></p>
+          <p>Currently <strong>{this.state.mexSignups} Mexico</strong> signups <span role="img" aria-label="mexico">🇲🇽</span></p>
+          <p>Currently <strong>{this.state.cndSignups} Canada</strong> signups <span role="img" aria-label="canada">🇨🇦</span></p>
+          <p>Currently <strong>{this.state.burnerSignups} Burner</strong> signups <span role="img" aria-label="burners">🔥</span></p>
+          <p>Currently <strong>{this.state.bipoclgbtqSignups} BIPOCLGBTQ</strong> signups <span role="img" aria-label="bipoclgbtq">🌈</span></p>
+          <p>Currently <strong>{this.state.helpyourblackneighborSignups} helpyourblackneighbor</strong> signups <span role="img" aria-label="helpyourblackneighbor">🏘</span></p>
           <br/>
           <h3><strong>Search for a user by their email:</strong></h3>
           <form className={styles.SearchForm} onSubmit={this.handleSearch}>
