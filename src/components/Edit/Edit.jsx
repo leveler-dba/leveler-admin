@@ -15,6 +15,7 @@ class Edit extends PureComponent {
       entryIndexData: {},
       numUsers: 0,
       mexSignups: 0,
+      cndSignups: 0,
       burnerSignups: 0,
       bipoclgbtqSignups: 0,
       helpyourblackneighborSignups: 0,
@@ -34,6 +35,7 @@ class Edit extends PureComponent {
       .catch(err => console.error(err));
 
       this.getMexicoCount();
+      this.getCanadaCount();
       this.getBurnerCount();
       this.getBipocCount();
       this.getHelpYourBlackNeighborCount();
@@ -47,6 +49,18 @@ class Edit extends PureComponent {
       .then((querySnapshot) => {
         this.setState({
           mexSignups: querySnapshot.docs.length
+        })
+      })
+  }
+
+  getCanadaCount = () => {
+    const { entriesCollection } = this.props.firebase;
+    entriesCollection
+      .where('group', '==', 'canada')
+      .get()
+      .then((querySnapshot) => {
+        this.setState({
+          cndSignups: querySnapshot.docs.length
         })
       })
   }
@@ -162,6 +176,7 @@ class Edit extends PureComponent {
         <div className={styles.EditBody}>
           <p>There are currently {this.state.numUsers} total signups.</p>
           <p>There are currently {this.state.mexSignups} Mexico signups.</p>
+          <p>There are currently {this.state.cndSignups} Canada signups.</p>
           <p>There are currently {this.state.burnerSignups} Burner signups.</p>
           <p>There are currently {this.state.bipoclgbtqSignups} BIPOCLGBTQ signups.</p>
           <p>There are currently {this.state.helpyourblackneighborSignups} helpyourblackneighbor signups.</p>
