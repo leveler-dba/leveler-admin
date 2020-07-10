@@ -174,13 +174,15 @@ class Edit extends PureComponent {
       <>
         <Header />
         <div className={styles.EditBody}>
-          <p>There are currently {this.state.numUsers} total signups.</p>
-          <p>There are currently {this.state.mexSignups} Mexico signups.</p>
-          <p>There are currently {this.state.cndSignups} Canada signups.</p>
-          <p>There are currently {this.state.burnerSignups} Burner signups.</p>
-          <p>There are currently {this.state.bipoclgbtqSignups} BIPOCLGBTQ signups.</p>
-          <p>There are currently {this.state.helpyourblackneighborSignups} helpyourblackneighbor signups.</p>
-          <p>search for a user by their email.</p>
+          <h3>Signups by Group/Subdomain</h3>
+          <p>Currently <strong>{this.state.numUsers} Total</strong> signups.</p>
+          <p>Currently <strong>{this.state.mexSignups} Mexico</strong> signups <span>🇲🇽</span></p>
+          <p>Currently <strong>{this.state.cndSignups} Canada</strong> signups <span>🇨🇦</span></p>
+          <p>Currently <strong>{this.state.burnerSignups} Burner</strong> signups <span>🔥</span></p>
+          <p>Currently <strong>{this.state.bipoclgbtqSignups} BIPOCLGBTQ</strong> signups <span>🌈</span></p>
+          <p>Currently <strong>{this.state.helpyourblackneighborSignups} helpyourblackneighbor</strong> signups <span>🏘</span></p>
+          <br/>
+          <h3><strong>Search for a user by their email:</strong></h3>
           <form className={styles.SearchForm} onSubmit={this.handleSearch}>
             <input type="text" name="query" value={this.state.query} onChange={this.handleChange} placeholder="email-goes-here@gmail.com" />
             <button type="submit" value="search" onClick={this.handleSearch}>Search</button>
