@@ -10,7 +10,8 @@ const Header = () => (
     <ul className={styles.sections}>
       <li><Link to={ROUTES.HOME}>home</Link></li>
       <li><Link to={ROUTES.EDIT}>manage users</Link></li>
-	  <li><Link to={ROUTES.RESOURCES}>manage resources</Link></li>
+	  	{/* <li><Link to={ROUTES.RESOURCES}>manage resources</Link></li> */}
+			<li><Link to={ROUTES.ENTRIES}>manage entries</Link></li>
     </ul>
 	</header>
 )

@@ -52,7 +52,7 @@ const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
 
 class Firebase {
   constructor() {
-    app.initializeApp(config);
+    app.initializeApp(prodConfig);
     this.db = app.database();
     this.dbFs = app.firestore();
     this.fieldValue = app.firestore.FieldValue;

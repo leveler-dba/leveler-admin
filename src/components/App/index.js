@@ -10,6 +10,7 @@ import Home from '../Home/Home';
 import SignIn from '../SignIn/SignIn';
 import Edit from '../Edit/Edit';
 import Resources from '../Resources/Resources';
+import EntryTable from '../EntryTable/EntryTable';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -26,6 +27,7 @@ const App = () => (
       <Route path={ROUTES.SIGNIN} component={SignIn} />
       <PrivateRoute path={ROUTES.EDIT} component={Edit} />
       <PrivateRoute path={ROUTES.RESOURCES} component={Resources} />
+      <PrivateRoute path={ROUTES.ENTRIES} component={EntryTable} />
     </div>
   </Router>
 );
