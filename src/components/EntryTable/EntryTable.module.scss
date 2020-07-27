@@ -6,3 +6,17 @@
 			clear: left;
 	}
 }
+
+.GridTable {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.GridTable > span {
+	padding: 8px 4px;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+
+}

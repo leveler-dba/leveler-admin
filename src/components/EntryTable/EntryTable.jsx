@@ -5,6 +5,7 @@ import lunr from 'lunr';
 import { withFirebase } from '../Firebase';
 import styles from './EntryTable.module.scss';
 import Header from '../Header';
+import TableHeader from './Table'
 
 class Home extends PureComponent { 
   constructor(props) {
@@ -13,32 +14,14 @@ class Home extends PureComponent {
     this.state = {
 			hasError: false,
 			query: '',
-			activeGroup:''
+			activeGroup:'',
+			searchResults: []
     };
   }
 
   componentDidMount = () => {
 		document.title = "leveler | admin"
-		// this.getAllEntries();
   }
-
-  componentDidUpdate = () => {
-  }
-
-  componentWillUnmount = () => {
-	}
-	
-	// async getAllEntries() {
-	// 	const entriesArr = [];
-  //   const { entriesCollection } = this.props.firebase;
-	// 	const allEntries = await entriesCollection
-	// 		.where('group', '==', "bipoclgbtq")
-	// 		.get()
-	// 	for (const doc of allEntries.docs){
-	// 		entriesArr.push(doc.data())
-	// 	}
-	// 	this.createSearchIndex(entriesArr)
-	// }
 	
 	async setUpSearchIndex() {
 		const entriesArr = [];
@@ -54,17 +37,24 @@ class Home extends PureComponent {
 
 	runSearchOnIndex(entries) {
 		const idx = lunr(function () {
-			this.ref('payment_url')
-			this.ref('description')
+			// this.ref('payment_url')
+			this.ref('random')
 			this.field('description')
-			this.field('payment_url')
 			this.field('location')
+			this.field('payment_url')
+			this.field('shown')
+			// this.field('location')
 			entries.forEach(function (doc) {
 				this.add(doc)
 			}, this)
 		})
 		const result = idx.search(this.state.query)
 		console.log(result)
+		const results = result.map(item => {
+			return entries.find(entry => item.ref === entry.random.toString())
+		})
+		console.log(results)
+		this.setState({searchResults: results})
 	}
 
 	handleChange = event => {
@@ -100,6 +90,13 @@ class Home extends PureComponent {
 								<button type="submit" value="search" onClick={this.handleSearch}>Search</button>
 								{this.state.hasError && (<span className={styles.error}>we don't have anything for them. try again.</span>)}
 							</form>
+						</>
+					)}
+					{this.state.searchResults.length > 0 && (
+						<>
+						<p>Results:</p>
+						<p>{this.state.searchResults[0].shown}</p>
+						<TableHeader results={this.state.searchResults}/>
 						</>
 					)}
         </div>
