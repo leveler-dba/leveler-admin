@@ -32,17 +32,20 @@ class Home extends PureComponent {
 		for (const doc of allEntries.docs){
 			entriesArr.push(doc.data())
 		}
+		for (let i=0;i<entriesArr.length;i++) {
+			let pay_url = entriesArr[i].payment_url[0];
+			entriesArr[i].payment_url = pay_url;
+		}
+		console.log(entriesArr)
 		this.runSearchOnIndex(entriesArr)
 	}
 
 	runSearchOnIndex(entries) {
 		const idx = lunr(function () {
-			// this.ref('payment_url')
 			this.ref('random')
 			this.field('description')
 			this.field('location')
 			this.field('payment_url')
-			this.field('shown')
 			// this.field('location')
 			entries.forEach(function (doc) {
 				this.add(doc)
@@ -94,8 +97,7 @@ class Home extends PureComponent {
 					)}
 					{this.state.searchResults.length > 0 && (
 						<>
-						<p>Results:</p>
-						<p>{this.state.searchResults[0].shown}</p>
+						<p><strong>{this.state.searchResults.length} results for "{this.state.query}":</strong></p>
 						<TableHeader results={this.state.searchResults}/>
 						</>
 					)}
