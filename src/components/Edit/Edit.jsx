@@ -19,6 +19,7 @@ class Edit extends PureComponent {
       burnerSignups: 0,
       bipoclgbtqSignups: 0,
       helpyourblackneighborSignups: 0,
+      irvingparkmutualaidSignups: 0,
     };
 
   componentDidMount = () => {
@@ -39,6 +40,7 @@ class Edit extends PureComponent {
       this.getBurnerCount();
       this.getBipocCount();
       this.getHelpYourBlackNeighborCount();
+      this.getIrvingParkMutualAidCount();
   }
 
   getMexicoCount = () => {
@@ -97,6 +99,18 @@ class Edit extends PureComponent {
       .then((querySnapshot) => {
         this.setState({
           helpyourblackneighborSignups: querySnapshot.docs.length
+        })
+      })
+  }
+
+  getIrvingParkMutualAidCount = () => {
+    const { entriesCollection } = this.props.firebase;
+    entriesCollection
+      .where('group', '==', 'irvingparkmutualaid')
+      .get()
+      .then((querySnapshot) => {
+        this.setState({
+          irvingparkmutualaidSignups: querySnapshot.docs.length
         })
       })
   }
@@ -181,6 +195,7 @@ class Edit extends PureComponent {
           <p>Currently <strong>{this.state.burnerSignups} Burner</strong> signups <span role="img" aria-label="burners">🔥</span></p>
           <p>Currently <strong>{this.state.bipoclgbtqSignups} BIPOCLGBTQ</strong> signups <span role="img" aria-label="bipoclgbtq">🌈</span></p>
           <p>Currently <strong>{this.state.helpyourblackneighborSignups} helpyourblackneighbor</strong> signups <span role="img" aria-label="helpyourblackneighbor">🏘</span></p>
+          <p>Currently <strong>{this.state.irvingparkmutualaidSignups} Irving Park Mutual Aid</strong> signups.</p>
           <br/>
           <h3><strong>Search for a user by their email:</strong></h3>
           <form className={styles.SearchForm} onSubmit={this.handleSearch}>
