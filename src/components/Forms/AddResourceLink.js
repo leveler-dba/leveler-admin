@@ -31,7 +31,7 @@ export const AddResourceLink = (props) => {
 			<Field name="group" as="select" >
 				<option value="">select a group</option>
 				{groups.map(group => (
-					<option value={group}>{group}</option>
+					<option value={group.group}>{group.name}</option>
 				))}
 			</Field>
 			<label htmlFor="title">Title</label>
